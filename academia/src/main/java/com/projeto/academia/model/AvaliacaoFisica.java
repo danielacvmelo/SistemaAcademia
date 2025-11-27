@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -14,8 +16,8 @@ import java.time.LocalDate;
 public class AvaliacaoFisica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "membro_id", nullable = false)
@@ -29,14 +31,14 @@ public class AvaliacaoFisica {
     private LocalDate dataAvaliacao;
 
     @Column
-    private Double peso; // em kg
+    private Double peso;
 
     @Column
-    private Double altura; // em cm
+    private Double altura;
 
     @Column(name = "percentual_gordura")
     private Double percentualGordura;
 
     @Column(columnDefinition = "TEXT")
-    private String observacoes; // Notas do instrutor
+    private String observacoes;
 }
