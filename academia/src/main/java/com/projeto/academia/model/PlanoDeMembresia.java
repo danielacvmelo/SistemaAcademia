@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -14,21 +16,21 @@ import java.math.BigDecimal;
 public class PlanoDeMembresia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 100)
-    private String nome; // Ex: "Plano Mensal", "Plano Anual Fit"
+    private String nome;
 
     @Column(columnDefinition = "TEXT")
-    private String descricao; // Ex: "Acesso a todas as áreas e aulas coletivas"
+    private String descricao;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Column(name = "duracao_meses")
-    private Integer duracaoMeses; // Ex: 1, 3, 6, 12
+    private Integer duracaoMeses;
 
     @Column(nullable = false)
-    private boolean ativo = true; // Define se o plano está disponível para novas contratações
+    private boolean ativo = true;
 }

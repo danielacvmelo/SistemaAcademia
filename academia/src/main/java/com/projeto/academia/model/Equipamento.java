@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -14,14 +16,14 @@ import java.time.LocalDate;
 public class Equipamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 100)
-    private String nome; // Ex: "Esteira Ergométrica", "Leg Press 45º"
+    private String nome;
 
     @Column(name = "grupo_muscular", length = 50)
-    private String grupoMuscular; // Ex: "Cardio", "Pernas", "Superiores"
+    private String grupoMuscular;
 
     @Column(name = "data_aquisicao")
     private LocalDate dataAquisicao;
@@ -30,5 +32,5 @@ public class Equipamento {
     private LocalDate ultimaManutencao;
 
     @Column(length = 30)
-    private String status; // Ex: "Operacional", "Em Manutenção"
+    private String status;
 }
