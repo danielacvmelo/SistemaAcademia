@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal; // <--- Importante! O tipo exato.
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -31,13 +32,13 @@ public class AvaliacaoFisica {
     private LocalDate dataAvaliacao;
 
     @Column
-    private Double peso;
+    private BigDecimal peso; // Mudou de Double para BigDecimal
 
     @Column
-    private Double altura;
+    private BigDecimal altura; // Mudou de Double para BigDecimal
 
     @Column(name = "percentual_gordura")
-    private Double percentualGordura;
+    private BigDecimal percentualGordura; // Mudou de Double para BigDecimal
 
     @Column(columnDefinition = "TEXT")
     private String observacoes;
