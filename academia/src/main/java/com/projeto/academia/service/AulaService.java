@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class AulaService {
         return aulaRepository.findAll();
     }
 
-    public Aula buscarPorId(Long id) {
+    public Aula buscarPorId(UUID id) {
         return aulaRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Aula não encontrada com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class AulaService {
     }
 
     @Transactional
-    public Aula atualizar(Long id, Aula aula) {
+    public Aula atualizar(UUID id, Aula aula) {
         if (!aulaRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Aula não encontrada com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class AulaService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!aulaRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Aula não encontrada com o ID: " + id);
         }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/agendamentos")
@@ -22,7 +23,7 @@ public class AgendamentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Agendamento> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Agendamento> buscarPorId(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok(agendamentoService.buscarPorId(id));
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class AgendamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Agendamento> atualizar(@PathVariable Long id, @Valid @RequestBody Agendamento agendamento) {
+    public ResponseEntity<Agendamento> atualizar(@PathVariable UUID id, @Valid @RequestBody Agendamento agendamento) {
         try {
             Agendamento agendamentoAtualizado = agendamentoService.atualizar(id, agendamento);
             return ResponseEntity.ok(agendamentoAtualizado);
@@ -47,7 +48,7 @@ public class AgendamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         try {
             agendamentoService.excluir(id);
             return ResponseEntity.noContent().build();
