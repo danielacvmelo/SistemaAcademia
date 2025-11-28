@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/planos")
@@ -22,7 +23,7 @@ public class PlanoDeMembresiaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlanoDeMembresia> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<PlanoDeMembresia> buscarPorId(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok(planoService.buscarPorId(id));
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class PlanoDeMembresiaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanoDeMembresia> atualizar(@PathVariable Long id, @Valid @RequestBody PlanoDeMembresia plano) {
+    public ResponseEntity<PlanoDeMembresia> atualizar(@PathVariable UUID id, @Valid @RequestBody PlanoDeMembresia plano) {
         try {
             PlanoDeMembresia planoAtualizado = planoService.atualizar(id, plano);
             return ResponseEntity.ok(planoAtualizado);
@@ -47,7 +48,7 @@ public class PlanoDeMembresiaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         try {
             planoService.excluir(id);
             return ResponseEntity.noContent().build();
