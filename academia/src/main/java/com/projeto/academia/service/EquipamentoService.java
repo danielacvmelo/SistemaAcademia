@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class EquipamentoService {
         return equipamentoRepository.findAll();
     }
 
-    public Equipamento buscarPorId(Long id) {
+    public Equipamento buscarPorId(UUID id) {
         return equipamentoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Equipamento não encontrado com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class EquipamentoService {
     }
 
     @Transactional
-    public Equipamento atualizar(Long id, Equipamento equipamento) {
+    public Equipamento atualizar(UUID id, Equipamento equipamento) {
         if (!equipamentoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Equipamento não encontrado com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class EquipamentoService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!equipamentoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Equipamento não encontrado com o ID: " + id);
         }

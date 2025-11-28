@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class AgendamentoService {
         return agendamentoRepository.findAll();
     }
 
-    public Agendamento buscarPorId(Long id) {
+    public Agendamento buscarPorId(UUID id) {
         return agendamentoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Agendamento não encontrado com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class AgendamentoService {
     }
 
     @Transactional
-    public Agendamento atualizar(Long id, Agendamento agendamento) {
+    public Agendamento atualizar(UUID id, Agendamento agendamento) {
         if (!agendamentoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Agendamento não encontrado com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class AgendamentoService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!agendamentoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Agendamento não encontrado com o ID: " + id);
         }

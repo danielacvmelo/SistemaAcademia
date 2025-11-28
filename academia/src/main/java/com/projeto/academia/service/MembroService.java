@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class MembroService {
         return membroRepository.findAll();
     }
 
-    public Membro buscarPorId(Long id) {
+    public Membro buscarPorId(UUID id) {
         return membroRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Membro não encontrado com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class MembroService {
     }
 
     @Transactional
-    public Membro atualizar(Long id, Membro membro) {
+    public Membro atualizar(UUID id, Membro membro) {
         if (!membroRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Membro não encontrado com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class MembroService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!membroRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Membro não encontrado com o ID: " + id);
         }
