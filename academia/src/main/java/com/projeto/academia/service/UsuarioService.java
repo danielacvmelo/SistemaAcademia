@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,12 +18,12 @@ import java.util.UUID;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Page<Usuario> listar(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
 
-    // NOVO MÉTODO
     public List<Usuario> buscarPorNome(String nome) {
         return usuarioRepository.findByNomeContainingIgnoreCase(nome);
     }
@@ -39,6 +40,7 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 
