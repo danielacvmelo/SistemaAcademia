@@ -18,42 +18,28 @@ public class MembroController {
     private final MembroService membroService;
 
     @GetMapping
-    public List<Membro> listar() {
-        return membroService.listar();
+    public ResponseEntity<List<Membro>> listar() {
+        return ResponseEntity.ok(membroService.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Membro> buscarPorId(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(membroService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(membroService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Membro> criar(@Valid @RequestBody Membro membro) {
-        Membro membroSalvo = membroService.salvar(membro);
-        return ResponseEntity.ok(membroSalvo);
+        return ResponseEntity.ok(membroService.salvar(membro));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Membro> atualizar(@PathVariable UUID id, @Valid @RequestBody Membro membro) {
-        try {
-            Membro membroAtualizado = membroService.atualizar(id, membro);
-            return ResponseEntity.ok(membroAtualizado);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(membroService.atualizar(id, membro));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-        try {
-            membroService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        membroService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

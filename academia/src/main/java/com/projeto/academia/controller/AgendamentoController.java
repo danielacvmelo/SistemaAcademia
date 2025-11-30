@@ -18,42 +18,28 @@ public class AgendamentoController {
     private final AgendamentoService agendamentoService;
 
     @GetMapping
-    public List<Agendamento> listar() {
-        return agendamentoService.listar();
+    public ResponseEntity<List<Agendamento>> listar() {
+        return ResponseEntity.ok(agendamentoService.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Agendamento> buscarPorId(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(agendamentoService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(agendamentoService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Agendamento> criar(@Valid @RequestBody Agendamento agendamento) {
-        Agendamento agendamentoSalvo = agendamentoService.salvar(agendamento);
-        return ResponseEntity.ok(agendamentoSalvo);
+        return ResponseEntity.ok(agendamentoService.salvar(agendamento));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Agendamento> atualizar(@PathVariable UUID id, @Valid @RequestBody Agendamento agendamento) {
-        try {
-            Agendamento agendamentoAtualizado = agendamentoService.atualizar(id, agendamento);
-            return ResponseEntity.ok(agendamentoAtualizado);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(agendamentoService.atualizar(id, agendamento));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-        try {
-            agendamentoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        agendamentoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

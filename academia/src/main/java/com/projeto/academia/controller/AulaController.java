@@ -18,42 +18,28 @@ public class AulaController {
     private final AulaService aulaService;
 
     @GetMapping
-    public List<Aula> listar() {
-        return aulaService.listar();
+    public ResponseEntity<List<Aula>> listar() {
+        return ResponseEntity.ok(aulaService.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Aula> buscarPorId(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(aulaService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(aulaService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Aula> criar(@Valid @RequestBody Aula aula) {
-        Aula aulaSalva = aulaService.salvar(aula);
-        return ResponseEntity.ok(aulaSalva);
+        return ResponseEntity.ok(aulaService.salvar(aula));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Aula> atualizar(@PathVariable UUID id, @Valid @RequestBody Aula aula) {
-        try {
-            Aula aulaAtualizada = aulaService.atualizar(id, aula);
-            return ResponseEntity.ok(aulaAtualizada);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(aulaService.atualizar(id, aula));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-        try {
-            aulaService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        aulaService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

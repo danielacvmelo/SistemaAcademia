@@ -18,42 +18,28 @@ public class AvaliacaoFisicaController {
     private final AvaliacaoFisicaService avaliacaoService;
 
     @GetMapping
-    public List<AvaliacaoFisica> listar() {
-        return avaliacaoService.listar();
+    public ResponseEntity<List<AvaliacaoFisica>> listar() {
+        return ResponseEntity.ok(avaliacaoService.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AvaliacaoFisica> buscarPorId(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(avaliacaoService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(avaliacaoService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<AvaliacaoFisica> criar(@Valid @RequestBody AvaliacaoFisica avaliacao) {
-        AvaliacaoFisica avaliacaoSalva = avaliacaoService.salvar(avaliacao);
-        return ResponseEntity.ok(avaliacaoSalva);
+        return ResponseEntity.ok(avaliacaoService.salvar(avaliacao));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AvaliacaoFisica> atualizar(@PathVariable UUID id, @Valid @RequestBody AvaliacaoFisica avaliacao) {
-        try {
-            AvaliacaoFisica avaliacaoAtualizada = avaliacaoService.atualizar(id, avaliacao);
-            return ResponseEntity.ok(avaliacaoAtualizada);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(avaliacaoService.atualizar(id, avaliacao));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-        try {
-            avaliacaoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        avaliacaoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

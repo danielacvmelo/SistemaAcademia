@@ -18,42 +18,28 @@ public class PlanoDeMembresiaController {
     private final PlanoDeMembresiaService planoService;
 
     @GetMapping
-    public List<PlanoDeMembresia> listar() {
-        return planoService.listar();
+    public ResponseEntity<List<PlanoDeMembresia>> listar() {
+        return ResponseEntity.ok(planoService.listar());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PlanoDeMembresia> buscarPorId(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(planoService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(planoService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<PlanoDeMembresia> criar(@Valid @RequestBody PlanoDeMembresia plano) {
-        PlanoDeMembresia planoSalvo = planoService.salvar(plano);
-        return ResponseEntity.ok(planoSalvo);
+        return ResponseEntity.ok(planoService.salvar(plano));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PlanoDeMembresia> atualizar(@PathVariable UUID id, @Valid @RequestBody PlanoDeMembresia plano) {
-        try {
-            PlanoDeMembresia planoAtualizado = planoService.atualizar(id, plano);
-            return ResponseEntity.ok(planoAtualizado);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(planoService.atualizar(id, plano));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-        try {
-            planoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        planoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
