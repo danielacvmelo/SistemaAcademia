@@ -1,10 +1,13 @@
 package com.projeto.academia.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.projeto.academia.validation.CpfValido;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -29,12 +32,16 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @Column(nullable = false, unique = true, length = 254)
+    @NotBlank(message = "O email é obrigatório")
+    @Email(message = "O formato do email é inválido")
     private String email;
 
     @Column(nullable = false)
+    @NotBlank(message = "A senha é obrigatória")
     private String senha;
 
     @Column(length = 14, unique = true)
+    @CpfValido
     private String cpf;
 
     @Enumerated(EnumType.STRING)
