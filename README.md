@@ -52,7 +52,7 @@ This project follows a strict **Layered Architecture** to ensure separation of c
 git clone [https://github.com/danielacvmelo/gym-management-system.git](https://github.com/danielacvmelo/gym-management-system.git)
 cd gym-management-system
 
-### 2. Start the Database
+2. Start the Database
 The project includes a docker-compose.yml file to set up the PostgreSQL database automatically.
 
 Bash
@@ -60,7 +60,7 @@ Bash
 docker compose up -d
 This will start PostgreSQL on port 5434.
 
-### 3. Run the Application
+3. Run the Application
 You can run the application using Maven or your IDE (IntelliJ IDEA recommended).
 
 Via Terminal:
@@ -70,19 +70,19 @@ Bash
 ./mvnw spring-boot:run
 Via IntelliJ: Run the AcademiaApplication.java class.
 
-### 4. Database Seeding
+4. Database Seeding
 On the first run, Flyway will automatically:
 
 Create the database schema (V1__create_tables.sql).
 
 Populate the database with seed data (V2__insert_data.sql), including test users and plans.
 
-###🔌 API Documentation (Swagger)
+🔌 API Documentation (Swagger)
 Once the application is running, access the interactive API documentation at:
 
 👉 http://localhost:8080/swagger-ui/index.html
 
-### How to Authenticate
+How to Authenticate
 The API is secured. To test endpoints, you must obtain a JWT:
 
 Go to POST /login.
@@ -99,7 +99,7 @@ Click the Authorize 🔓 button at the top of the Swagger page.
 
 Paste the token (e.g., eyJhbGci...) and click Authorize.
 
-### 📂 Database Schema
+📂 Database Schema
 The database relies on UUIDs for all primary keys to ensure global uniqueness and security.
 
 usuarios: Centralized authentication table (Admin/User profiles).
@@ -114,12 +114,12 @@ agendamentos: Scheduling for classes/evaluations.
 
 avaliacoes_fisicas: Health metrics tracking.
 
-### 🧪 Testing
+🧪 Testing
 The project includes:
 
 Unit/Integration Tests: Controllers and Services are tested to ensure business logic correctness.
 
-### Filter/Search Endpoints:
+Filter/Search Endpoints:
 
 GET /usuarios/buscar?nome=X: Keyword search.
 
