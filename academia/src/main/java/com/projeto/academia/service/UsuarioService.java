@@ -5,9 +5,10 @@ import com.projeto.academia.model.Usuario;
 import com.projeto.academia.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -16,8 +17,8 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public List<Usuario> listar() {
-        return usuarioRepository.findAll();
+    public Page<Usuario> listar(Pageable pageable) {
+        return usuarioRepository.findAll(pageable);
     }
 
     public Usuario buscarPorId(UUID id) {
@@ -32,7 +33,6 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        // TODO: Futuramente, aqui faremos o encode da senha (BCrypt) antes de salvar
         return usuarioRepository.save(usuario);
     }
 
