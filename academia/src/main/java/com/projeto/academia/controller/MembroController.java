@@ -4,10 +4,12 @@ import com.projeto.academia.model.Membro;
 import com.projeto.academia.service.MembroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +20,9 @@ public class MembroController {
     private final MembroService membroService;
 
     @GetMapping
-    public ResponseEntity<List<Membro>> listar() {
-        return ResponseEntity.ok(membroService.listar());
+    public ResponseEntity<Page<Membro>> listar(
+            @PageableDefault(size = 10, sort = "dataMatricula") Pageable pageable) {
+        return ResponseEntity.ok(membroService.listar(pageable));
     }
 
     @GetMapping("/{id}")
