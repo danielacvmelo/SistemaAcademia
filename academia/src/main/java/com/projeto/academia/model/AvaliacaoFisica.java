@@ -5,13 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal; // <--- Importante! O tipo exato.
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "avaliacoes_fisicas")
 public class AvaliacaoFisica {
@@ -32,13 +35,15 @@ public class AvaliacaoFisica {
     private LocalDate dataAvaliacao;
 
     @Column
-    private BigDecimal peso; // Mudou de Double para BigDecimal
+
+    private BigDecimal peso;
 
     @Column
-    private BigDecimal altura; // Mudou de Double para BigDecimal
+    private BigDecimal altura;
 
     @Column(name = "percentual_gordura")
-    private BigDecimal percentualGordura; // Mudou de Double para BigDecimal
+
+    private BigDecimal percentualGordura;
 
     @Column(columnDefinition = "TEXT")
     private String observacoes;
