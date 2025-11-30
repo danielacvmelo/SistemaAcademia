@@ -5,6 +5,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.security.authentication.BadCredentialsException;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -31,6 +32,15 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Erro de validação nos dados enviados");
         problemDetail.setTitle("Dados inválidos");
         problemDetail.setProperty("erros", errors.toString());
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail handleBadCredentials(BadCredentialsException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, "Credenciais inválidas: Login ou senha incorretos");
+        problemDetail.setTitle("Erro de Autenticação");
+        problemDetail.setType(URI.create("https://academia-api.com/erros/nao-autorizado"));
         problemDetail.setProperty("timestamp", LocalDateTime.now());
         return problemDetail;
     }
