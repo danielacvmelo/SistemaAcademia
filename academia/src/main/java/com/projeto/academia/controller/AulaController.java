@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/aulas")
@@ -17,42 +18,28 @@ public class AulaController {
     private final AulaService aulaService;
 
     @GetMapping
-    public List<Aula> listar() {
-        return aulaService.listar();
+    public ResponseEntity<List<Aula>> listar() {
+        return ResponseEntity.ok(aulaService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aula> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(aulaService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Aula> buscarPorId(@PathVariable UUID id) {
+        return ResponseEntity.ok(aulaService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Aula> criar(@Valid @RequestBody Aula aula) {
-        Aula aulaSalva = aulaService.salvar(aula);
-        return ResponseEntity.ok(aulaSalva);
+        return ResponseEntity.ok(aulaService.salvar(aula));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aula> atualizar(@PathVariable Long id, @Valid @RequestBody Aula aula) {
-        try {
-            Aula aulaAtualizada = aulaService.atualizar(id, aula);
-            return ResponseEntity.ok(aulaAtualizada);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Aula> atualizar(@PathVariable UUID id, @Valid @RequestBody Aula aula) {
+        return ResponseEntity.ok(aulaService.atualizar(id, aula));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            aulaService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        aulaService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

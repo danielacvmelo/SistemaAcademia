@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/agendamentos")
@@ -17,42 +18,28 @@ public class AgendamentoController {
     private final AgendamentoService agendamentoService;
 
     @GetMapping
-    public List<Agendamento> listar() {
-        return agendamentoService.listar();
+    public ResponseEntity<List<Agendamento>> listar() {
+        return ResponseEntity.ok(agendamentoService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Agendamento> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(agendamentoService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Agendamento> buscarPorId(@PathVariable UUID id) {
+        return ResponseEntity.ok(agendamentoService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Agendamento> criar(@Valid @RequestBody Agendamento agendamento) {
-        Agendamento agendamentoSalvo = agendamentoService.salvar(agendamento);
-        return ResponseEntity.ok(agendamentoSalvo);
+        return ResponseEntity.ok(agendamentoService.salvar(agendamento));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Agendamento> atualizar(@PathVariable Long id, @Valid @RequestBody Agendamento agendamento) {
-        try {
-            Agendamento agendamentoAtualizado = agendamentoService.atualizar(id, agendamento);
-            return ResponseEntity.ok(agendamentoAtualizado);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Agendamento> atualizar(@PathVariable UUID id, @Valid @RequestBody Agendamento agendamento) {
+        return ResponseEntity.ok(agendamentoService.atualizar(id, agendamento));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            agendamentoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        agendamentoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

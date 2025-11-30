@@ -1,12 +1,15 @@
 package com.projeto.academia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import lombok.*;
 
-@Data
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,20 +17,18 @@ import java.time.LocalDate;
 public class Instrutor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(nullable = false, length = 150)
-    private String nome;
-
-    @Column(nullable = false, unique = true, length = 100)
-    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, unique = true)
+    private Usuario usuario;
 
     @Column(nullable = false, unique = true, length = 20)
-    private String cref; // Conselho Regional de Educação Física
+    private String cref;
 
     @Column(length = 100)
-    private String especialidade; // Ex: "Musculação", "Pilates", "Dança"
+    private String especialidade;
 
     @Column(name = "data_contratacao")
     private LocalDate dataContratacao;

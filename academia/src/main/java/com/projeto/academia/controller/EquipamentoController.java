@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/equipamentos")
@@ -17,42 +18,28 @@ public class EquipamentoController {
     private final EquipamentoService equipamentoService;
 
     @GetMapping
-    public List<Equipamento> listar() {
-        return equipamentoService.listar();
+    public ResponseEntity<List<Equipamento>> listar() {
+        return ResponseEntity.ok(equipamentoService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Equipamento> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(equipamentoService.buscarPorId(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Equipamento> buscarPorId(@PathVariable UUID id) {
+        return ResponseEntity.ok(equipamentoService.buscarPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Equipamento> criar(@Valid @RequestBody Equipamento equipamento) {
-        Equipamento equipamentoSalvo = equipamentoService.salvar(equipamento);
-        return ResponseEntity.ok(equipamentoSalvo);
+        return ResponseEntity.ok(equipamentoService.salvar(equipamento));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Equipamento> atualizar(@PathVariable Long id, @Valid @RequestBody Equipamento equipamento) {
-        try {
-            Equipamento equipamentoAtualizado = equipamentoService.atualizar(id, equipamento);
-            return ResponseEntity.ok(equipamentoAtualizado);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Equipamento> atualizar(@PathVariable UUID id, @Valid @RequestBody Equipamento equipamento) {
+        return ResponseEntity.ok(equipamentoService.atualizar(id, equipamento));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            equipamentoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        equipamentoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

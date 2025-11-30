@@ -1,12 +1,15 @@
 package com.projeto.academia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+import lombok.*;
 
-@Data
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,26 +17,25 @@ import java.time.LocalDateTime;
 public class Agendamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "membro_id", nullable = false)
     private Membro membro;
 
-    // Um agendamento pode ou não ter um instrutor específico
     @ManyToOne
     @JoinColumn(name = "instrutor_id")
     private Instrutor instrutor;
 
     @Column(nullable = false)
-    private String tipo; // Ex: "Avaliação Física", "Aula Experimental"
+    private String tipo;
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
     @Column(length = 30)
-    private String status; // Ex: "Agendado", "Concluído", "Cancelado"
+    private String status;
 
     @Column(columnDefinition = "TEXT")
     private String observacoes;

@@ -1,12 +1,15 @@
 package com.projeto.academia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import lombok.*;
 
-@Data
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,21 +17,20 @@ import java.time.LocalDate;
 public class Membro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(nullable = false, length = 150)
-    private String nome;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, unique = true)
+    private Usuario usuario;
 
-    @Column(nullable = false, unique = true, length = 100)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private PlanoDeMembresia plano;
 
     @Column(name = "data_matricula", nullable = false)
     private LocalDate dataMatricula;
 
-    @Column(length = 50)
-    private String plano; // Ex: "Mensal", "Anual", "Familiar"
-
     @Column(length = 20)
-    private String status; // Ex: "Ativo", "Inativo", "Pendente"
+    private String status;
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class InstrutorService {
         return instrutorRepository.findAll();
     }
 
-    public Instrutor buscarPorId(Long id) {
+    public Instrutor buscarPorId(UUID id) {
         return instrutorRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Instrutor não encontrado com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class InstrutorService {
     }
 
     @Transactional
-    public Instrutor atualizar(Long id, Instrutor instrutor) {
+    public Instrutor atualizar(UUID id, Instrutor instrutor) {
         if (!instrutorRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Instrutor não encontrado com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class InstrutorService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!instrutorRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Instrutor não encontrado com o ID: " + id);
         }

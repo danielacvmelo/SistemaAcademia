@@ -1,12 +1,15 @@
 package com.projeto.academia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalTime;
+import lombok.*;
 
-@Data
+import java.time.LocalTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,14 +17,14 @@ import java.time.LocalTime;
 public class Aula {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 100)
-    private String nome; // Ex: "Spinning", "Yoga", "Zumba"
+    private String nome;
 
-    @Column
-    private String diaDaSemana; // Ex: "Segunda-feira", "Terça-feira"
+    @Column(name = "dia_da_semana")
+    private String diaDaSemana;
 
     @Column
     private LocalTime horario;
@@ -31,5 +34,5 @@ public class Aula {
 
     @ManyToOne
     @JoinColumn(name = "instrutor_id")
-    private Instrutor instrutor; // Relacionamento com a entidade Instrutor
+    private Instrutor instrutor;
 }

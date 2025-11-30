@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class PlanoDeMembresiaService {
         return planoRepository.findAll();
     }
 
-    public PlanoDeMembresia buscarPorId(Long id) {
+    public PlanoDeMembresia buscarPorId(UUID id) {
         return planoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Plano de Membresia não encontrado com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class PlanoDeMembresiaService {
     }
 
     @Transactional
-    public PlanoDeMembresia atualizar(Long id, PlanoDeMembresia plano) {
+    public PlanoDeMembresia atualizar(UUID id, PlanoDeMembresia plano) {
         if (!planoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Plano de Membresia não encontrado com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class PlanoDeMembresiaService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!planoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Plano de Membresia não encontrado com o ID: " + id);
         }
