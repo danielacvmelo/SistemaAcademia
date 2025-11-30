@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +21,11 @@ public class MembroService {
 
     public Page<Membro> listar(Pageable pageable) {
         return membroRepository.findAll(pageable);
+    }
+
+    // NOVO MÉTODO
+    public List<Membro> buscarMatriculadosApos(LocalDate data) {
+        return membroRepository.findByDataMatriculaAfter(data);
     }
 
     public Membro buscarPorId(UUID id) {
