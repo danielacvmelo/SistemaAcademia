@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/instrutores")
@@ -22,7 +23,7 @@ public class InstrutorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Instrutor> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Instrutor> buscarPorId(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok(instrutorService.buscarPorId(id));
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class InstrutorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Instrutor> atualizar(@PathVariable Long id, @Valid @RequestBody Instrutor instrutor) {
+    public ResponseEntity<Instrutor> atualizar(@PathVariable UUID id, @Valid @RequestBody Instrutor instrutor) {
         try {
             Instrutor instrutorAtualizado = instrutorService.atualizar(id, instrutor);
             return ResponseEntity.ok(instrutorAtualizado);
@@ -47,7 +48,7 @@ public class InstrutorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         try {
             instrutorService.excluir(id);
             return ResponseEntity.noContent().build();

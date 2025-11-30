@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/membros")
@@ -22,7 +23,7 @@ public class MembroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Membro> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Membro> buscarPorId(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok(membroService.buscarPorId(id));
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class MembroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Membro> atualizar(@PathVariable Long id, @Valid @RequestBody Membro membro) {
+    public ResponseEntity<Membro> atualizar(@PathVariable UUID id, @Valid @RequestBody Membro membro) {
         try {
             Membro membroAtualizado = membroService.atualizar(id, membro);
             return ResponseEntity.ok(membroAtualizado);
@@ -47,7 +48,7 @@ public class MembroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         try {
             membroService.excluir(id);
             return ResponseEntity.noContent().build();

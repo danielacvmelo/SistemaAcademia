@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class AvaliacaoFisicaService {
         return avaliacaoRepository.findAll();
     }
 
-    public AvaliacaoFisica buscarPorId(Long id) {
+    public AvaliacaoFisica buscarPorId(UUID id) {
         return avaliacaoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Avaliação Física não encontrada com o ID: " + id));
     }
@@ -30,7 +31,7 @@ public class AvaliacaoFisicaService {
     }
 
     @Transactional
-    public AvaliacaoFisica atualizar(Long id, AvaliacaoFisica avaliacao) {
+    public AvaliacaoFisica atualizar(UUID id, AvaliacaoFisica avaliacao) {
         if (!avaliacaoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Avaliação Física não encontrada com o ID: " + id);
         }
@@ -39,7 +40,7 @@ public class AvaliacaoFisicaService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(UUID id) {
         if (!avaliacaoRepository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Avaliação Física não encontrada com o ID: " + id);
         }

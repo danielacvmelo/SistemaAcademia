@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/aulas")
@@ -22,7 +23,7 @@ public class AulaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aula> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Aula> buscarPorId(@PathVariable UUID id) {
         try {
             return ResponseEntity.ok(aulaService.buscarPorId(id));
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class AulaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aula> atualizar(@PathVariable Long id, @Valid @RequestBody Aula aula) {
+    public ResponseEntity<Aula> atualizar(@PathVariable UUID id, @Valid @RequestBody Aula aula) {
         try {
             Aula aulaAtualizada = aulaService.atualizar(id, aula);
             return ResponseEntity.ok(aulaAtualizada);
@@ -47,7 +48,7 @@ public class AulaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         try {
             aulaService.excluir(id);
             return ResponseEntity.noContent().build();

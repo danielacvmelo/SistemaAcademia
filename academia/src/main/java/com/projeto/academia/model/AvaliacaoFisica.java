@@ -5,16 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< Updated upstream
-=======
 import java.math.BigDecimal;
->>>>>>> Stashed changes
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "avaliacoes_fisicas")
 public class AvaliacaoFisica {
@@ -35,23 +35,15 @@ public class AvaliacaoFisica {
     private LocalDate dataAvaliacao;
 
     @Column
-<<<<<<< Updated upstream
-    private Double peso;
 
-    @Column
-    private Double altura;
-
-    @Column(name = "percentual_gordura")
-    private Double percentualGordura;
-=======
     private BigDecimal peso;
 
     @Column
     private BigDecimal altura;
 
     @Column(name = "percentual_gordura")
+
     private BigDecimal percentualGordura;
->>>>>>> Stashed changes
 
     @Column(columnDefinition = "TEXT")
     private String observacoes;
