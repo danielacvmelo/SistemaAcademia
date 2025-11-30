@@ -20,6 +20,11 @@ public class InstrutorService {
         return instrutorRepository.findAll();
     }
 
+    // NOVO MÉTODO
+    public List<Instrutor> filtrarPorEspecialidade(String especialidade) {
+        return instrutorRepository.findByEspecialidadeContainingIgnoreCase(especialidade);
+    }
+
     public Instrutor buscarPorId(UUID id) {
         return instrutorRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Instrutor não encontrado com o ID: " + id));

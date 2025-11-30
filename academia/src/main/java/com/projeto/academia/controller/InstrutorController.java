@@ -22,6 +22,12 @@ public class InstrutorController {
         return ResponseEntity.ok(instrutorService.listar());
     }
 
+    // NOVO ENDPOINT
+    @GetMapping("/filtro")
+    public ResponseEntity<List<Instrutor>> filtrarPorEspecialidade(@RequestParam String especialidade) {
+        return ResponseEntity.ok(instrutorService.filtrarPorEspecialidade(especialidade));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Instrutor> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(instrutorService.buscarPorId(id));

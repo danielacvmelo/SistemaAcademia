@@ -10,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +25,12 @@ public class MembroController {
     public ResponseEntity<Page<Membro>> listar(
             @PageableDefault(size = 10, sort = "dataMatricula") Pageable pageable) {
         return ResponseEntity.ok(membroService.listar(pageable));
+    }
+
+    // NOVO ENDPOINT
+    @GetMapping("/matriculados-apos")
+    public ResponseEntity<List<Membro>> buscarPorData(@RequestParam LocalDate data) {
+        return ResponseEntity.ok(membroService.buscarMatriculadosApos(data));
     }
 
     @GetMapping("/{id}")

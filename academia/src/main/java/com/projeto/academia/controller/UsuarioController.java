@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +24,11 @@ public class UsuarioController {
     public ResponseEntity<Page<Usuario>> listar(
             @PageableDefault(size = 10, sort = "nome") Pageable pageable) {
         return ResponseEntity.ok(usuarioService.listar(pageable));
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam String nome) {
+        return ResponseEntity.ok(usuarioService.buscarPorNome(nome));
     }
 
     @GetMapping("/{id}")
