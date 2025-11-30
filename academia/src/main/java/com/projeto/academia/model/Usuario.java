@@ -1,5 +1,7 @@
 package com.projeto.academia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.projeto.academia.validation.CpfValido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,7 +9,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.projeto.academia.validation.CpfValido;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -48,9 +49,11 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private Perfil perfil;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "atualizado_em", nullable = false)
     private LocalDateTime atualizadoEm;
 
@@ -67,7 +70,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + perfil.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
