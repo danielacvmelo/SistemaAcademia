@@ -129,4 +129,3 @@ INSERT INTO membros (id, usuario_id, plano_id, data_matricula, status) VALUES
 INSERT INTO equipamentos (id, nome, grupo_muscular, data_aquisicao, status) VALUES
                                                                                 (gen_random_uuid(), 'Esteira Pro 5000', 'Cardio', '2023-01-01', 'Operacional'),
                                                                                 (gen_random_uuid(), 'Supino Reto', 'Peito', '2023-01-01', 'Operacional'),
-                                                                                (gen_random_uuid(), 'Leg Press 45', 'Pernas', '2023-02-15', 'Em Manutenção');
