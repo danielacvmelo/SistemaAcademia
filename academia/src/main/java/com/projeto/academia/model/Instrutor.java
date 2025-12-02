@@ -1,5 +1,6 @@
 package com.projeto.academia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class Instrutor {
     @Column(length = 100)
     private String especialidade;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_contratacao")
     private LocalDate dataContratacao;
 }

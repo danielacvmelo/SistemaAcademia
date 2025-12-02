@@ -1,5 +1,6 @@
 package com.projeto.academia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class AvaliacaoFisica {
     @JoinColumn(name = "instrutor_id", nullable = false)
     private Instrutor instrutor;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_avaliacao", nullable = false)
     private LocalDate dataAvaliacao;
 

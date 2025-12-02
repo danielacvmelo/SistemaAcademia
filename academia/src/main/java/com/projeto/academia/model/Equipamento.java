@@ -1,5 +1,6 @@
 package com.projeto.academia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Equipamento {
     @Column(name = "grupo_muscular", length = 50)
     private String grupoMuscular;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_aquisicao")
     private LocalDate dataAquisicao;
 
