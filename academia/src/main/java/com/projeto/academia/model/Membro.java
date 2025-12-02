@@ -1,5 +1,6 @@
 package com.projeto.academia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Membro {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, unique = true)
     private Usuario usuario;
 
@@ -28,6 +29,7 @@ public class Membro {
     @JoinColumn(name = "plano_id")
     private PlanoDeMembresia plano;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_matricula", nullable = false)
     private LocalDate dataMatricula;
 

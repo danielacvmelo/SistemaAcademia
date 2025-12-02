@@ -49,11 +49,11 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private Perfil perfil;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "atualizado_em", nullable = false)
     private LocalDateTime atualizadoEm;
 
